@@ -5,7 +5,7 @@ import 'package:simpa/authintication/sign_in_screen.dart';
 import 'package:simpa/pages/welcome.dart';
 
 class SignUpScreen extends StatefulWidget {
-  SignUpScreen({super.key});
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();

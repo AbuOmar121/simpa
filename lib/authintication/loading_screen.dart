@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:simpa/starting_screen.dart';
 
 class LoadingScreen extends StatelessWidget {
-  LoadingScreen({super.key});
+  const LoadingScreen({super.key});
 
   Future<void> simulateDelay() async {
     await Future.delayed(Duration(seconds: 3));
