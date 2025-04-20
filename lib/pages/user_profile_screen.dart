@@ -46,14 +46,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       if (mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const SignInScreen()),
+          MaterialPageRoute(builder: (_) => SignInScreen()),
           (route) => false,
         );
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to sign out')),
+          SnackBar(content: Text('Failed to sign out')),
         );
       }
     } finally {
@@ -65,15 +65,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Profile'),
+        title: Text('My Profile'),
         actions: [
           _isSigningOut
-              ? const Padding(
+              ? Padding(
                   padding: EdgeInsets.all(16.0),
                   child: CircularProgressIndicator(),
                 )
               : IconButton(
-                  icon: const Icon(Icons.logout),
+                  icon: Icon(Icons.logout),
                   onPressed: _signOut,
                   tooltip: 'Sign Out',
                 ),
@@ -83,7 +83,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         future: _userDataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError || snapshot.data?['error'] != null) {
@@ -97,14 +97,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     snapshot.data?['error'] ?? 'An error occurred',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
                         _userDataFuture = _fetchUserData();
                       });
                     },
-                    child: const Text('Retry'),
+                    child: Text('Retry'),
                   ),
                 ],
               ),
@@ -118,7 +118,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           final phone = userData['phone'] as String? ?? 'Not provided';
 
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -131,14 +131,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         backgroundColor: Colors.pink[100],
                         child: Text(
                           '${firstName.isNotEmpty ? firstName[0] : ''}${lastName.isNotEmpty ? lastName[0] : ''}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
                             color: Colors.pink,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16),
                       Text(
                         '$firstName $lastName',
                         style:
@@ -149,9 +149,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 32),
-                const Divider(),
-                const SizedBox(height: 16),
+                SizedBox(height: 32),
+                Divider(),
+                SizedBox(height: 16),
 
                 // User Details
                 _buildDetailTile(
@@ -171,25 +171,23 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     value: DateFormat('MMMM d, y').format(createdAt.toDate()),
                   ),
 
-                const SizedBox(height: 32),
-                const Divider(),
-                const SizedBox(height: 16),
+                SizedBox(height: 32),
+                Divider(),
+                SizedBox(height: 16),
 
                 // Edit Profile Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Edit Profile'),
+                    icon: Icon(Icons.edit),
+                    label: Text('Edit Profile'),
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    onPressed: () {
-                      // TODO: Implement edit profile functionality
-                    },
+                    onPressed: () {},
                   ),
                 ),
               ],
@@ -209,42 +207,19 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       leading: Icon(icon, color: Colors.pink),
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.grey,
           fontSize: 14,
         ),
       ),
       subtitle: Text(
         value,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
       ),
-      contentPadding: const EdgeInsets.symmetric(vertical: 4),
+      contentPadding: EdgeInsets.symmetric(vertical: 4),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    theme: ThemeData(
-      primarySwatch: Colors.pink,
-      useMaterial3: true,
-    ),
-    home: FutureBuilder<User?>(
-      future: FirebaseAuth.instance.authStateChanges().first,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
-        if (snapshot.hasData && snapshot.data != null) {
-          return UserProfileScreen(user: snapshot.data!);
-        }
-        return const SignInScreen();
-      },
-    ),
-  ));
 }

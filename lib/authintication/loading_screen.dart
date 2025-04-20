@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'starting_screen.dart'; // Import the sign-in screen
+import 'package:simpa/starting_screen.dart';
 
 class LoadingScreen extends StatelessWidget {
-  const LoadingScreen({super.key});
+  LoadingScreen({super.key});
 
   Future<void> simulateDelay() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 3));
   }
 
   @override
@@ -21,8 +21,8 @@ class LoadingScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const CircularProgressIndicator(),
-                  const SizedBox(height: 20),
+                  CircularProgressIndicator(),
+                  SizedBox(height: 20),
                   Text(
                     'Please wait...',
                     style: TextStyle(
@@ -35,7 +35,7 @@ class LoadingScreen extends StatelessWidget {
             );
           } else {
             // Navigate to the sign-in screen after the delay
-            return const StartingScreen();
+            return StartingScreen();
           }
         },
       ),

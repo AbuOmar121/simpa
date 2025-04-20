@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 void showAddPetPopup(BuildContext context,
     {required void Function() onPetAdded}) {
+  // ignore: no_leading_underscores_for_local_identifiers
   final _formKey = GlobalKey<FormState>();
   final petNameController = TextEditingController();
   final petBreedController = TextEditingController();
@@ -16,7 +17,15 @@ void showAddPetPopup(BuildContext context,
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Add a New Pet'),
+        title: Text(
+          'Add a New Pet',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 24,
+            color: Color(0xFFE91E63),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         content: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -25,9 +34,15 @@ void showAddPetPopup(BuildContext context,
               children: [
                 TextFormField(
                   controller: petNameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Pet Name',
-                    hintText: 'Enter pet name',
+                  decoration: InputDecoration(
+                    labelText: 'Pet name',
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.pink),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -36,7 +51,7 @@ void showAddPetPopup(BuildContext context,
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 DropdownButtonFormField<String>(
                   items: ['Cat', 'Dog', 'Bird', 'Rabbit', 'Other'].map((type) {
                     return DropdownMenuItem(
@@ -47,16 +62,30 @@ void showAddPetPopup(BuildContext context,
                   onChanged: (value) {
                     if (value != null) petType = value;
                   },
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Pet Type',
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.pink),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 TextFormField(
                   controller: petBreedController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Pet Breed',
                     hintText: 'Enter pet breed',
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.pink),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -65,7 +94,7 @@ void showAddPetPopup(BuildContext context,
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 DropdownButtonFormField<String>(
                   items: ['Male', 'Female'].map((gender) {
                     return DropdownMenuItem(
@@ -76,18 +105,25 @@ void showAddPetPopup(BuildContext context,
                   onChanged: (value) {
                     if (value != null) petGender = value;
                   },
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Pet Gender',
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.pink),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 ListTile(
                   title: Text(
                     birthDate == null
                         ? 'Select Birth Date'
                         : 'Birth Date: ${DateFormat('yyyy-MM-dd').format(birthDate!)}',
                   ),
-                  trailing: const Icon(Icons.calendar_today),
+                  trailing: Icon(Icons.calendar_today),
                   onTap: () async {
                     final selectedDate = await showDatePicker(
                         context: context,
@@ -106,7 +142,12 @@ void showAddPetPopup(BuildContext context,
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                color: Color(0xFFE91E63),
+              ),
+            ),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -115,7 +156,7 @@ void showAddPetPopup(BuildContext context,
                 if (user == null) {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Please sign in first')),
+                      SnackBar(content: Text('Please sign in first')),
                     );
                   }
                   return;
@@ -137,7 +178,7 @@ void showAddPetPopup(BuildContext context,
                     Navigator.of(context).pop();
                     onPetAdded();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Pet added successfully!')),
+                      SnackBar(content: Text('Pet added successfully!')),
                     );
                   }
                 } catch (e) {
@@ -150,12 +191,17 @@ void showAddPetPopup(BuildContext context,
               } else if (birthDate == null) {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Please select a birth date')),
+                    SnackBar(content: Text('Please select a birth date')),
                   );
                 }
               }
             },
-            child: const Text('Save'),
+            child: Text(
+              'Save',
+              style: TextStyle(
+                color: Color(0xFFE91E63),
+              ),
+            ),
           ),
         ],
       );

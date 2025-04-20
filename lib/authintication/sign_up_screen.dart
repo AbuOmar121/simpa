@@ -5,7 +5,7 @@ import 'package:simpa/authintication/sign_in_screen.dart';
 import 'package:simpa/pages/welcome.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+  SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -143,26 +143,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             child: IntrinsicHeight(
               child: Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24),
+                padding: EdgeInsets.only(left: 24, right: 24),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Logo and header text
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 32),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            'assets/images/Simpa for app@4x.png',
-                            width: 200,
-                            fit: BoxFit.contain,
+                      Hero(
+                        tag: 'logo',
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 32),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.asset(
+                              'assets/images/Simpa for app@4x.png',
+                              width: 200,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
                       ),
-                      const Text(
+                      Text(
                         'Create Account',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -173,7 +175,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 24),
                         child: Text(
                           'Fill in your details to continue',
@@ -194,7 +196,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               controller: _firstNameController,
                               decoration: InputDecoration(
                                 labelText: 'First Name',
-                                prefixIcon: const Icon(Icons.person),
+                                prefixIcon: Icon(Icons.person),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
@@ -204,7 +206,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               textInputAction: TextInputAction.next,
                             ),
                           ),
-                          const SizedBox(width: 16),
+                          SizedBox(width: 16),
                           Expanded(
                             child: TextFormField(
                               controller: _lastNameController,
@@ -221,14 +223,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24),
 
                       // Email Field
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
                           labelText: 'Email',
-                          prefixIcon: const Icon(Icons.email),
+                          prefixIcon: Icon(Icons.email),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
@@ -244,14 +246,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         textInputAction: TextInputAction.next,
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24),
 
                       // Phone Field - without validation
                       TextFormField(
                         controller: _phoneController,
                         decoration: InputDecoration(
                           labelText: 'Phone',
-                          prefixIcon: const Icon(Icons.phone),
+                          prefixIcon: Icon(Icons.phone),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
@@ -259,14 +261,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.next,
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24),
 
                       // Password Field
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
                           labelText: 'Password',
-                          prefixIcon: const Icon(Icons.lock),
+                          prefixIcon: Icon(Icons.lock),
                           suffixIcon: IconButton(
                             icon: Icon(_obscurePassword
                                 ? Icons.visibility_off
@@ -288,14 +290,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         textInputAction: TextInputAction.next,
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24),
 
                       // Confirm Password Field
                       TextFormField(
                         controller: _confirmPasswordController,
                         decoration: InputDecoration(
                           labelText: 'Confirm Password',
-                          prefixIcon: const Icon(Icons.lock_outline),
+                          prefixIcon: Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
                             icon: Icon(_obscureConfirmPassword
                                 ? Icons.visibility_off
@@ -313,15 +315,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             value!.isEmpty ? 'Required field' : null,
                         textInputAction: TextInputAction.done,
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24),
 
                       // Error Message
                       if (_errorMessage != null)
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
+                          padding: EdgeInsets.only(bottom: 16),
                           child: Text(
                             _errorMessage!,
-                            style: const TextStyle(color: Colors.red),
+                            style: TextStyle(color: Colors.red),
                           ),
                         ),
 
@@ -332,15 +334,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: _isLoading ? null : _signUp,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.pink,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            padding: EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
                           ),
                           child: _isLoading
-                              ? const CircularProgressIndicator(
-                                  color: Colors.white)
-                              : const Text(
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : Text(
                                   'Sign Up',
                                   style: TextStyle(
                                     fontSize: 18,
@@ -350,22 +351,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24),
 
                       // Sign In Link
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("Already have an account?"),
+                          Text("Already have an account?"),
                           TextButton(
                             onPressed: () {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const SignInScreen()),
+                                    builder: (_) => SignInScreen()),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               'Sign In',
                               style: TextStyle(color: Colors.pink),
                             ),
