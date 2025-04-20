@@ -1,9 +1,9 @@
-import 'package:simpa/authintication/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
-import 'package:simpa/add_pet_popup.dart';
+import 'package:simpa/popups/add_pet_popup.dart';
+import 'package:simpa/pages/settings.dart';
 
 class Welcome extends StatefulWidget {
   final User user;
@@ -16,9 +16,6 @@ class Welcome extends StatefulWidget {
 class _WelcomeState extends State<Welcome> {
   late Future<Map<String, dynamic>> _userDataFuture;
   late Future<List<Pet>> _petsFuture;
-
-  // ignore: unused_field
-  bool _isSigningOut = false;
 
   @override
   void initState() {
@@ -52,46 +49,22 @@ class _WelcomeState extends State<Welcome> {
           .get();
 
       return querySnapshot.docs.map((doc) {
-        print(doc.data());
         return Pet.fromDocumentSnapshot(doc);
       }).toList();
     } catch (e) {
-      print(e);
       return []; // Return an empty list on error
-    }
-  }
-
-  Future<void> _signOut() async {
-    setState(() => _isSigningOut = true);
-    try {
-      await FirebaseAuth.instance.signOut();
-      if (mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => SignInScreen()),
-          (route) => false,
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to sign out')),
-        );
-      }
-    } finally {
-      if (mounted) setState(() => _isSigningOut = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFE1E1),
+      backgroundColor: Color(0xFFFFE1E1),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFF4F81),
+        backgroundColor: Color(0xFFFF4F81),
         automaticallyImplyLeading: false,
-        title: const Text(
+        title: Text(
           'Simpa',
           style: TextStyle(
             fontFamily: 'Inter Tight',
@@ -104,32 +77,27 @@ class _WelcomeState extends State<Welcome> {
         elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
+              Icons.notifications,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
               Icons.settings,
               color: Colors.white,
               size: 30,
             ),
             onPressed: () {
-              print("Settings tapped");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => SettingsScreen(user: widget.user),
+                ),
+              );
             },
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.notifications,
-              color: Colors.white,
-              size: 30,
-            ),
-            onPressed: () {
-              print("Notifications tapped");
-            },
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.logout,
-              color: Colors.white,
-              size: 30,
-            ),
-            onPressed: _signOut,
           ),
         ],
       ),
@@ -137,7 +105,7 @@ class _WelcomeState extends State<Welcome> {
         future: _userDataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError || snapshot.data?['error'] != null) {
@@ -145,19 +113,19 @@ class _WelcomeState extends State<Welcome> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error, color: Colors.red, size: 48),
-                  const SizedBox(height: 16),
+                  Icon(Icons.error, color: Color(0xFFF44336), size: 48),
+                  SizedBox(height: 16),
                   Text(
                     snapshot.data?['error'] ?? 'An error occurred',
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
                         _userDataFuture = _fetchUserData();
                       });
                     },
-                    child: const Text('Retry'),
+                    child: Text('Retry'),
                   ),
                 ],
               ),
@@ -170,9 +138,9 @@ class _WelcomeState extends State<Welcome> {
           final phone = userData['phone'] as String? ?? 'Not provided';
 
           return Container(
-            color: const Color(0xFFFFE1E1),
+            color: Color(0xFFFFE1E1),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,30 +148,35 @@ class _WelcomeState extends State<Welcome> {
                     // User card
                     GestureDetector(
                       onTap: () {
-                        print("User card tapped");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => SettingsScreen(user: widget.user),
+                          ),
+                        );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: EdgeInsets.all(16),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF8F8F8),
+                            color: Color(0xFFF8F8F8),
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 4,
-                                color: const Color.fromRGBO(0, 0, 0, 0.125),
-                                offset: const Offset(0, 2),
+                                color: Color.fromRGBO(0, 0, 0, 0.125),
+                                offset: Offset(0, 2),
                               )
                             ],
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(16),
                             child: Row(
                               children: [
                                 Container(
                                   width: 60,
                                   height: 60,
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                     color: Color.fromRGBO(178, 178, 178, 1),
                                     shape: BoxShape.circle,
                                   ),
@@ -213,7 +186,7 @@ class _WelcomeState extends State<Welcome> {
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) {
-                                        return const Icon(Icons.person,
+                                        return Icon(Icons.person,
                                             size: 60, color: Colors.grey);
                                       },
                                     ),
@@ -221,15 +194,15 @@ class _WelcomeState extends State<Welcome> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Welcome back, $firstname!',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontFamily: 'Urbanist',
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
@@ -239,7 +212,7 @@ class _WelcomeState extends State<Welcome> {
                                         ),
                                         Text(
                                           '$email - $phone',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontFamily: 'Manrope',
                                             fontSize: 14,
                                             color:
@@ -250,7 +223,7 @@ class _WelcomeState extends State<Welcome> {
                                     ),
                                   ),
                                 ),
-                                const Icon(
+                                Icon(
                                   Icons.arrow_forward_ios,
                                   color: Color.fromRGBO(31, 31, 31, 1),
                                   size: 24,
@@ -261,7 +234,7 @@ class _WelcomeState extends State<Welcome> {
                         ),
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.all(8),
                       child: Center(
                         child: Text(
@@ -275,15 +248,15 @@ class _WelcomeState extends State<Welcome> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 4,
-                            color: const Color.fromRGBO(0, 0, 0, 0.125),
-                            offset: const Offset(0, 2),
+                            color: Color.fromRGBO(0, 0, 0, 0.125),
+                            offset: Offset(0, 2),
                           ),
                         ],
                         borderRadius: BorderRadius.circular(12),
@@ -291,10 +264,9 @@ class _WelcomeState extends State<Welcome> {
                       child: FutureBuilder<List<Pet>>(
                         future: _petsFuture,
                         builder: (context, petsSnapshot) {
-                          print(petsSnapshot.data);
                           if (petsSnapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return const Padding(
+                            return Padding(
                               padding: EdgeInsets.all(16),
                               child: Center(child: CircularProgressIndicator()),
                             );
@@ -302,7 +274,7 @@ class _WelcomeState extends State<Welcome> {
 
                           if (petsSnapshot.hasError ||
                               petsSnapshot.data == null) {
-                            return const Padding(
+                            return Padding(
                               padding: EdgeInsets.all(16),
                               child: Center(
                                 child: Text(
@@ -318,7 +290,7 @@ class _WelcomeState extends State<Welcome> {
 
                           final pets = petsSnapshot.data!;
                           if (pets.isEmpty) {
-                            return const Padding(
+                            return Padding(
                               padding: EdgeInsets.all(16),
                               child: Center(
                                 child: Text(
@@ -338,18 +310,17 @@ class _WelcomeState extends State<Welcome> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      print("Pet tapped: ${pet.petName}");
                                       // Navigate to pet details page or perform any action
                                     },
                                     child: Container(
-                                      padding: const EdgeInsets.all(16),
+                                      padding: EdgeInsets.all(16),
                                       child: Row(
                                         children: [
                                           Container(
                                             width: 60,
                                             height: 60,
                                             decoration: BoxDecoration(
-                                              color: const Color(0xFFB2B2B2),
+                                              color: Color(0xFFB2B2B2),
                                               shape: BoxShape.circle,
                                             ),
                                             child: ClipOval(
@@ -358,7 +329,7 @@ class _WelcomeState extends State<Welcome> {
                                                 fit: BoxFit.cover,
                                                 errorBuilder: (context, error,
                                                     stackTrace) {
-                                                  return const Icon(Icons.pets,
+                                                  return Icon(Icons.pets,
                                                       size: 60,
                                                       color: Colors.grey);
                                                 },
@@ -367,16 +338,15 @@ class _WelcomeState extends State<Welcome> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 16),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 16),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     pet.petName,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily: 'Urbanist',
                                                       fontSize: 16,
                                                       fontWeight:
@@ -387,7 +357,7 @@ class _WelcomeState extends State<Welcome> {
                                                   ),
                                                   Text(
                                                     pet.petType,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily: 'Manrope',
                                                       fontSize: 14,
                                                       color: Color.fromRGBO(
@@ -398,7 +368,7 @@ class _WelcomeState extends State<Welcome> {
                                               ),
                                             ),
                                           ),
-                                          const Icon(
+                                          Icon(
                                             Icons.arrow_forward_ios,
                                             color:
                                                 Color.fromRGBO(31, 31, 31, 1),
@@ -408,7 +378,7 @@ class _WelcomeState extends State<Welcome> {
                                       ),
                                     ),
                                   ),
-                                  const Divider(
+                                  Divider(
                                     height: 0.5,
                                     thickness: 0.5,
                                     color: Color(0xFFFA9DBC),
@@ -431,10 +401,10 @@ class _WelcomeState extends State<Welcome> {
                           });
                         },
                         child: Padding(
-                          padding: const EdgeInsets.all(16),
+                          padding: EdgeInsets.all(16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Icon(
                                 Icons.add_circle_outline,
                                 color: Color(0xFFE91E63),
@@ -455,7 +425,7 @@ class _WelcomeState extends State<Welcome> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 64),
+                    SizedBox(height: 64),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
@@ -465,7 +435,7 @@ class _WelcomeState extends State<Welcome> {
                             width: 100,
                             height: 54.01,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
+                              gradient: LinearGradient(
                                 colors: [Color(0xFFFF4F81), Color(0xFFFF69B4)],
                                 stops: [0, 1],
                                 begin: AlignmentDirectional(1, 1),
@@ -474,12 +444,10 @@ class _WelcomeState extends State<Welcome> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: GestureDetector(
-                              onTap: () {
-                                print("Add a new pet tapped");
-                              },
+                              onTap: () {},
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.medical_services,
                                     color: Colors.white,
@@ -500,13 +468,13 @@ class _WelcomeState extends State<Welcome> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 16),
+                        SizedBox(width: 16),
                         Expanded(
                           child: Container(
                             width: 100,
                             height: 50,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
+                              gradient: LinearGradient(
                                 colors: [Color(0xFFFF4F81), Color(0xFFFF69B4)],
                                 stops: [0, 1],
                                 begin: AlignmentDirectional(1, 1),
@@ -515,12 +483,10 @@ class _WelcomeState extends State<Welcome> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: GestureDetector(
-                              onTap: () {
-                                print("Add a new pet tapped");
-                              },
+                              onTap: () {},
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Icon(
                                     Icons.calendar_today,
                                     color: Colors.white,
@@ -543,8 +509,8 @@ class _WelcomeState extends State<Welcome> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 32),
-                    const Padding(
+                    SizedBox(height: 32),
+                    Padding(
                       padding: EdgeInsets.all(8),
                       child: Center(
                         child: Text(
@@ -558,8 +524,8 @@ class _WelcomeState extends State<Welcome> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Padding(
+                    SizedBox(height: 16),
+                    Padding(
                       padding: EdgeInsets.all(16),
                       child: Center(
                         child: Text(
