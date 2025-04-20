@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
+import 'package:simpa/pages/pets/pet_profile.dart';
 import 'package:simpa/popups/add_pet_popup.dart';
 import 'package:simpa/pages/settings.dart';
+import 'package:simpa/pages/welcomeScreen/usercard.dart';
 
 class Welcome extends StatefulWidget {
   final User user;
-  const Welcome({super.key, required this.user});
+  const Welcome({Key? key, required this.user}) : super(key: key);
 
   @override
   State<Welcome> createState() => _WelcomeState();
@@ -146,94 +148,13 @@ class _WelcomeState extends State<Welcome> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // User card
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => SettingsScreen(user: widget.user),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF8F8F8),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 4,
-                                color: Color.fromRGBO(0, 0, 0, 0.125),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(16),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    color: Color.fromRGBO(178, 178, 178, 1),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: ClipOval(
-                                    child: Image.asset(
-                                      'assets/images/User.png',
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Icon(Icons.person,
-                                            size: 60, color: Colors.grey);
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Welcome back, $firstname!',
-                                          style: TextStyle(
-                                            fontFamily: 'Urbanist',
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color:
-                                                Color.fromRGBO(31, 31, 31, 1),
-                                          ),
-                                        ),
-                                        Text(
-                                          '$email - $phone',
-                                          style: TextStyle(
-                                            fontFamily: 'Manrope',
-                                            fontSize: 14,
-                                            color:
-                                                Color.fromRGBO(31, 31, 31, 1),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Color.fromRGBO(31, 31, 31, 1),
-                                  size: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                    UserCard(
+                      user: widget.user,
+                      firstname: firstname,
+                      email: email,
+                      phone: phone,
                     ),
+
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Center(
@@ -248,7 +169,9 @@ class _WelcomeState extends State<Welcome> {
                         ),
                       ),
                     ),
+
                     SizedBox(height: 16),
+
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -303,14 +226,18 @@ class _WelcomeState extends State<Welcome> {
                               ),
                             );
                           }
-
                           return Column(
                             children: pets.map((pet) {
                               return Column(
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      // Navigate to pet details page or perform any action
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => PetsProfile(pet: pet),
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       padding: EdgeInsets.all(16),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:simpa/pages/welcome.dart';
+import 'package:simpa/pages/welcomeScreen/welcome.dart';
 import 'sign_up_screen.dart';
 import 'forget_password.dart';
 

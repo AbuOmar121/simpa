@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simpa/authintication/sign_in_screen.dart';
-import 'package:simpa/pages/welcome.dart';
+import 'package:simpa/pages/welcomeScreen/welcome.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -363,7 +363,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => SignInScreen()),
+                                  builder: (_) => SignInScreen(),
+                                ),
                               );
                             },
                             child: Text(

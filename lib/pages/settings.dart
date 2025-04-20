@@ -86,6 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
+          color: const Color(0xFFFFFFFF),
           onPressed: () {
             Navigator.pop(context);
           },
