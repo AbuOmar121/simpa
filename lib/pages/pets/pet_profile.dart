@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
+import 'package:simpa/pages/pets/details.dart';
 
 class PetsProfile extends StatefulWidget {
   final Pet pet;
@@ -22,35 +23,200 @@ class _PetsProfileState extends State<PetsProfile> {
     final DateTime? petBirth = pet.birthdate;
 
     return Scaffold(
+      backgroundColor: Color(0xFFFFE1E1),
       appBar: AppBar(
-        title: const Text('Pet Details'),
-        backgroundColor: Colors.pink,
+        centerTitle: true,
+        title: Text(
+          'Pet Details',
+          style: TextStyle(
+            fontFamily: 'Inter Tight',
+            color: Color(0xFFFFFFFF),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Color(0xFFFF4F81),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Color(0xFFFFFFFF),
+            size: 30,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              petName,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            Text('Breed: $petBreed', style: const TextStyle(fontSize: 18)),
-            Text('Gender: $petGender', style: const TextStyle(fontSize: 18)),
-            Text('Type: $petType', style: const TextStyle(fontSize: 18)),
-            const SizedBox(height: 24),
-            Text(
-              'Birthdate: ${petBirth != null ? petBirth.toLocal().toString().split(' ')[0] : 'Unknown'}',
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
+        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 24),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: Image.asset('assets/images/animal.jpeg').image,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4,
+                      color: Color(0x33000000),
+                      offset: Offset(
+                        0,
+                        2,
+                      ),
+                    )
+                  ],
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: const Color(0xFFE91E63),
+                    width: 3,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 4),
+                child: Text(
+                  petName,
+                  style: TextStyle(
+                    fontFamily: 'Inter Tight',
+                    fontSize: 30,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Container(
+                  width: double.infinity,
+                  constraints: BoxConstraints(
+                    maxWidth: 500,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DetailBar(
+                          icon: Icons.male,
+                          detail: 'Gender',
+                          data: petGender,
+                        ),
+                        Divider(),
+                        DetailBar(
+                          icon: Icons.calendar_month,
+                          detail: 'Birth date',
+                          data: petBirth != null
+                              ? petBirth.toLocal().toString().split(' ')[0]
+                              : 'Unknown',
+                        ),
+                        Divider(),
+                        DetailBar(
+                          icon: Icons.pets,
+                          detail: 'pet type',
+                          data: petType,
+                        ),
+                        Divider(),
+                        DetailBar(
+                          icon: Icons.vertical_distribute_outlined,
+                          detail: 'breed',
+                          data: petBreed,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        //print('Button pressed ...');
+                      },
+                      icon: Icon(
+                        Icons.edit,
+                        color: const Color(0xFFFFFFFF),
+                        size: 20,
+                      ),
+                      label: Text(
+                        'Edit Profile',
+                        style: TextStyle(
+                          fontFamily: 'Inter Tight',
+                          color: const Color(0xFFFFFFFF),
+                          fontSize: 16,
+                          letterSpacing: 0.0,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFE91E63),
+                        foregroundColor: Color(0xFFFFFFFF),
+                        minimumSize: Size(350, 50),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side: BorderSide(color: Colors.transparent),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        //print('Button pressed ...');
+                      },
+                      icon: Icon(
+                        Icons.delete,
+                        color: const Color(0xFFFFFFFF),
+                        size: 20,
+                      ),
+                      label: Text(
+                        'Delete Pet',
+                        style: TextStyle(
+                          fontFamily: 'Inter Tight',
+                          color: const Color(0xFFFFFFFF),
+                          fontSize: 16,
+                          letterSpacing: 0.0,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFE91E63),
+                        foregroundColor: Color(0xFFFFFFFF),
+                        minimumSize: Size(350, 50),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side: BorderSide(color: Colors.transparent),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

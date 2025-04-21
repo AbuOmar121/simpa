@@ -9,7 +9,7 @@ import 'package:simpa/pages/welcomeScreen/usercard.dart';
 
 class Welcome extends StatefulWidget {
   final User user;
-  const Welcome({Key? key, required this.user}) : super(key: key);
+  const Welcome({super.key, required this.user});
 
   @override
   State<Welcome> createState() => _WelcomeState();
