@@ -39,9 +39,12 @@ class Pet {
 
   Map<String, dynamic> toMap() {
     return {
-      'pet_name': petName,
-      'pet_type': petType,
-      'pet_breed': petBreed,
+      'name': petName,
+      'type': petType,
+      'breed': petBreed,
+      'gender': petGender,
+      'birthDate': birthdate != null ? Timestamp.fromDate(birthdate!) : null,
+      'ownerId': uid,
     };
   }
 }

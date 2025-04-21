@@ -1,27 +1,60 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
 import 'package:simpa/pages/pets/details.dart';
+import 'package:simpa/pages/welcomeScreen/welcome.dart';
 
 class PetsProfile extends StatefulWidget {
+  final User user;
   final Pet pet;
 
-  const PetsProfile({super.key, required this.pet});
+  const PetsProfile({super.key, required this.pet, required this.user});
 
   @override
   State<PetsProfile> createState() => _PetsProfileState();
 }
 
 class _PetsProfileState extends State<PetsProfile> {
-  @override
   Future<void> deletePet(String pid) async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser == null) {
+      print('User not authenticated');
+      return;
+    }
+
+    final uid = currentUser.uid;
+
     try {
+      final petDoc =
+          await FirebaseFirestore.instance.collection('pets').doc(pid).get();
+
+      if (!petDoc.exists) {
+        print('Pet not found');
+        return;
+      }
+
+      final data = petDoc.data();
+      if (data == null || data['ownerId'] != uid) {
+        print('User does not have permission to delete this pet');
+        return;
+      }
+
       await FirebaseFirestore.instance.collection('pets').doc(pid).delete();
+      print('Pet deleted successfully');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => Welcome(user: widget.user),
+        ),
+      );
     } catch (e) {
       print('Failed to delete pet: $e');
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     final pet = widget.pet;
 

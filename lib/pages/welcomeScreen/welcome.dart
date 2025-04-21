@@ -235,7 +235,10 @@ class _WelcomeState extends State<Welcome> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) => PetsProfile(pet: pet),
+                                          builder: (_) => PetsProfile(
+                                            pet: pet,
+                                            user: widget.user,
+                                          ),
                                         ),
                                       );
                                     },
