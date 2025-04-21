@@ -8,7 +8,7 @@ class Pet {
   final String petBreed;
   final String petGender;
   final DateTime? birthdate;
-  final String uid; //forign key
+  final String ownerId; //forign key
 
   Pet({
     required this.pid,
@@ -17,7 +17,7 @@ class Pet {
     required this.petBreed,
     required this.petGender,
     required this.birthdate,
-    required this.uid, //forign key
+    required this.ownerId, //forign key
   });
 
   factory Pet.fromFirestore(Map<String, dynamic> data, String pid, String uid) {
@@ -28,7 +28,7 @@ class Pet {
       petBreed: data['breed'] ?? '',
       petGender: data['gender'] ?? '',
       birthdate: (data['birthDate'] as Timestamp).toDate(),
-      uid: uid, //forign key
+      ownerId: data['ownerId'] ?? '',
     );
   }
 
@@ -42,6 +42,7 @@ class Pet {
       'pet_name': petName,
       'pet_type': petType,
       'pet_breed': petBreed,
+      'ownerId': ownerId,
     };
   }
 }

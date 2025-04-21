@@ -33,7 +33,7 @@ class _DetailBarState extends State<DetailBar> {
               size: 24,
             ),
             SizedBox(
-              width: 8,
+              width: 16,
             ),
             Expanded(
               child: Column(

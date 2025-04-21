@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
 import 'package:simpa/pages/pets/details.dart';
@@ -13,6 +14,14 @@ class PetsProfile extends StatefulWidget {
 
 class _PetsProfileState extends State<PetsProfile> {
   @override
+  Future<void> deletePet(String pid) async {
+    try {
+      await FirebaseFirestore.instance.collection('pets').doc(pid).delete();
+    } catch (e) {
+      print('Failed to delete pet: $e');
+    }
+  }
+
   Widget build(BuildContext context) {
     final pet = widget.pet;
 
@@ -27,7 +36,7 @@ class _PetsProfileState extends State<PetsProfile> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Pet Details',
+          'Pet Profile',
           style: TextStyle(
             fontFamily: 'Inter Tight',
             color: Color(0xFFFFFFFF),
@@ -184,7 +193,7 @@ class _PetsProfileState extends State<PetsProfile> {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {
-                        //print('Button pressed ...');
+                        deletePet(widget.pet.pid);
                       },
                       icon: Icon(
                         Icons.delete,
