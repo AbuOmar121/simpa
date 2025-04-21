@@ -27,7 +27,7 @@ class Pet {
       petType: data['type'] ?? '',
       petBreed: data['breed'] ?? '',
       petGender: data['gender'] ?? '',
-      birthdate: null,
+      birthdate: (data['birthDate'] as Timestamp).toDate(),
       uid: uid, //forign key
     );
   }
