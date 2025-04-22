@@ -10,7 +10,11 @@ class PetsProfile extends StatefulWidget {
   final User user;
   final Pet pet;
 
-  const PetsProfile({super.key, required this.pet, required this.user});
+  const PetsProfile({
+    super.key,
+    required this.pet,
+    required this.user,
+  });
 
   @override
   State<PetsProfile> createState() => _PetsProfileState();
@@ -173,6 +177,12 @@ class _PetsProfileState extends State<PetsProfile> {
                           detail: 'breed',
                           data: petBreed,
                         ),
+                        Divider(),
+                        DetailBar(
+                          icon: Icons.yard_outlined,
+                          detail: 'Age',
+                          data: pet.age,
+                        ),
                       ],
                     ),
                   ),
@@ -287,13 +297,9 @@ class _PetsProfileState extends State<PetsProfile> {
                                     padding: EdgeInsets.all(8),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          color: const Color.from(
-                                              alpha: 0.702,
-                                              red: 0.969,
-                                              green: 0.961,
-                                              blue: 0.961)),
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Color(0xB3F7F5F5),
+                                      ),
                                       child: Text(
                                         'Confirm',
                                         style: TextStyle(
