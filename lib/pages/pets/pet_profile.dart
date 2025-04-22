@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
 import 'package:simpa/pages/pets/details.dart';
 import 'package:simpa/pages/welcomeScreen/welcome.dart';
+import 'package:simpa/popups/delete_pet_popup.dart';
 
 class PetsProfile extends StatefulWidget {
   final User user;
@@ -185,8 +186,24 @@ class _PetsProfileState extends State<PetsProfile> {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {
-                        //print('Button pressed ...');
+                        showEditPetPopup(
+                          context, // <== positional argument
+                          pet: widget.pet,
+                          onPetUpdated: () {
+                            setState(() {
+                              // You likely intended to navigate, not just rebuild
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => Welcome(user: widget.user),
+                                ),
+                              );
+                            });
+                          },
+                        );
                       },
+
+                      /* */
                       icon: Icon(
                         Icons.edit,
                         color: const Color(0xFFFFFFFF),
@@ -196,7 +213,7 @@ class _PetsProfileState extends State<PetsProfile> {
                         'Edit Profile',
                         style: TextStyle(
                           fontFamily: 'Inter Tight',
-                          color: const Color(0xFFFFFFFF),
+                          color: Color(0xFFFFFFFF),
                           fontSize: 16,
                           letterSpacing: 0.0,
                         ),
