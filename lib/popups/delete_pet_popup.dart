@@ -8,7 +8,7 @@ void showEditPetPopup(
   required Pet pet,
   required void Function() onPetUpdated,
 }) {
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final petNameController = TextEditingController(text: pet.petName);
   final petBreedController = TextEditingController(text: pet.petBreed);
   String petType = pet.petType;
@@ -28,7 +28,7 @@ void showEditPetPopup(
           ),
         ),
         content: Form(
-          key: _formKey,
+          key: formKey,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -135,7 +135,7 @@ void showEditPetPopup(
           ),
           ElevatedButton(
             onPressed: () async {
-              if (_formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 final user = FirebaseAuth.instance.currentUser;
                 if (user == null) {
                   if (context.mounted) {

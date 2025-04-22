@@ -52,7 +52,9 @@ class _PetsProfileState extends State<PetsProfile> {
       );
     } catch (e) {
       SnackBar(
-        content: Text('Error delete pet: $e'),
+        content: Text(
+          'Error delete pet: $e',
+        ),
       );
     }
   }
