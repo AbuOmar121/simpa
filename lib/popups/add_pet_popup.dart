@@ -184,7 +184,9 @@ void showAddPetPopup(BuildContext context,
                 } catch (e) {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Error adding pet: $e')),
+                      SnackBar(
+                        content: Text('Error adding pet: $e'),
+                      ),
                     );
                   }
                 }

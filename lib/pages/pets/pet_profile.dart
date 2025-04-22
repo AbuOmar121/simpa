@@ -20,7 +20,6 @@ class _PetsProfileState extends State<PetsProfile> {
     final currentUser = FirebaseAuth.instance.currentUser;
 
     if (currentUser == null) {
-      print('User not authenticated');
       return;
     }
 
@@ -31,18 +30,15 @@ class _PetsProfileState extends State<PetsProfile> {
           await FirebaseFirestore.instance.collection('pets').doc(pid).get();
 
       if (!petDoc.exists) {
-        print('Pet not found');
         return;
       }
 
       final data = petDoc.data();
       if (data == null || data['ownerId'] != uid) {
-        print('User does not have permission to delete this pet');
         return;
       }
 
       await FirebaseFirestore.instance.collection('pets').doc(pid).delete();
-      print('Pet deleted successfully');
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -50,7 +46,9 @@ class _PetsProfileState extends State<PetsProfile> {
         ),
       );
     } catch (e) {
-      print('Failed to delete pet: $e');
+      SnackBar(
+        content: Text('Error delete pet: $e'),
+      );
     }
   }
 
@@ -226,7 +224,72 @@ class _PetsProfileState extends State<PetsProfile> {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {
-                        deletePet(widget.pet.pid);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(
+                                'are you sure?',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              content: Text(
+                                'Are you sure you want to delete this pet?',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                          color: Color(0xFFE91E63),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(true); // Close the dialog
+                                    deletePet(widget
+                                        .pet.pid); // Then execute the action
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: const Color.from(
+                                              alpha: 0.702,
+                                              red: 0.969,
+                                              green: 0.961,
+                                              blue: 0.961)),
+                                      child: Text(
+                                        'Confirm',
+                                        style: TextStyle(
+                                          color: Color(0xFFE91E63),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       icon: Icon(
                         Icons.delete,
