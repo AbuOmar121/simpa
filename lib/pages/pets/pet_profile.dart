@@ -76,6 +76,7 @@ class _PetsProfileState extends State<PetsProfile> {
         title: Text(
           'Pet Profile',
           style: TextStyle(
+            fontSize: 26,
             fontFamily: 'Inter Tight',
             color: Color(0xFFFFFFFF),
             fontWeight: FontWeight.bold,

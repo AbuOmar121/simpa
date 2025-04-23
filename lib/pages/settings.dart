@@ -76,10 +76,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xFFFF4F81),
         elevation: 0,
+        centerTitle: true,
         title: Text(
           'settings',
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 28,
             fontWeight: FontWeight.bold,
             color: Color(0xFFFFFFFF),
           ),

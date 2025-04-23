@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
 import 'package:simpa/pages/pets/pet_profile.dart';
+import 'package:simpa/pages/user/user_profile_screen.dart';
 import 'package:simpa/popups/add_pet_popup.dart';
 import 'package:simpa/pages/settings.dart';
 import 'package:simpa/pages/welcomeScreen/usercard.dart';
@@ -136,6 +137,7 @@ class _WelcomeState extends State<Welcome> {
 
           final userData = snapshot.data!;
           final firstname = userData['firstName'] as String? ?? '';
+          final lastName = userData['lastName'] as String? ?? '';
           final email = userData['email'] as String? ?? 'Not provided';
           final phone = userData['phone'] as String? ?? 'Not provided';
 
@@ -149,12 +151,20 @@ class _WelcomeState extends State<Welcome> {
                   children: [
                     // User card
                     UserCard(
-                      user: widget.user,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                UserProfileScreen(user: widget.user),
+                          ),
+                        );
+                      },
                       firstname: firstname,
+                      lastname: lastName,
                       email: email,
                       phone: phone,
                     ),
-
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Center(

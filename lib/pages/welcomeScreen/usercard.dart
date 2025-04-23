@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:simpa/pages/settings.dart';
 
 class UserCard extends StatefulWidget {
-  final User user;
+  final VoidCallback onPressed;
   final String firstname;
+  final String lastname;
   final String email;
   final String phone;
 
   const UserCard({
     super.key,
-    required this.user,
+    required this.onPressed,
     required this.firstname,
+    required this.lastname,
     required this.email,
     required this.phone,
   });
@@ -25,12 +25,7 @@ class _UserCardState extends State<UserCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => SettingsScreen(user: widget.user),
-          ),
-        );
+        widget.onPressed();
       },
       child: Padding(
         padding: EdgeInsets.all(16),
@@ -50,20 +45,15 @@ class _UserCardState extends State<UserCard> {
             padding: EdgeInsets.all(16),
             child: Row(
               children: [
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(178, 178, 178, 1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: ClipOval(
-                    child: Image.asset(
-                      'assets/images/User.png',
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Icon(Icons.person, size: 60, color: Colors.grey);
-                      },
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Color(0xFFFF3F3F),
+                  child: Text(
+                    '${widget.firstname.isNotEmpty ? widget.firstname[0] : ''}${widget.lastname.isNotEmpty ? widget.lastname[0] : ''}',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
                 ),
