@@ -53,7 +53,7 @@ class _UserCardState extends State<UserCard> {
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 255, 255, 255),
+                      color: const Color(0xFFFFFFFF),
                     ),
                   ),
                 ),

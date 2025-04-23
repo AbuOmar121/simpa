@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
 import 'package:simpa/pages/pets/details.dart';
 import 'package:simpa/pages/welcomeScreen/welcome.dart';
-import 'package:simpa/popups/delete_pet_popup.dart';
+import 'package:simpa/popups/edit_popup.dart';
 
 class PetsProfile extends StatefulWidget {
   final User user;
