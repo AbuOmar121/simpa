@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
-import 'package:simpa/pages/pets/details.dart';
-import 'package:simpa/pages/welcomeScreen/welcome.dart';
-import 'package:simpa/popups/edit_popup.dart';
+import 'package:simpa/screens/pets/details.dart';
+import 'package:simpa/screens/user_access/welcomeScreen/welcome.dart';
+import 'package:simpa/screens/popups/edit_popup.dart';
 
 class PetsProfile extends StatefulWidget {
   final User user;

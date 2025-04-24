@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:cloud_firestore/cloud_firestore.dart' as st;
+import 'package:simpa/firebase/models/user_model.dart';
+import 'package:simpa/screens/user/edit_profile.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  final User user;
+  final auth.User user;
   const UserProfileScreen({super.key, required this.user});
 
   @override
@@ -21,7 +23,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   Future<Map<String, dynamic>> _fetchUserData() async {
     try {
-      final doc = await FirebaseFirestore.instance
+      final doc = await st.FirebaseFirestore.instance
           .collection('users')
           .doc(widget.user.uid)
           .get();
@@ -95,12 +97,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           }
 
           final userData = snapshot.data!;
-          final createdAt = userData['createdAt'] as Timestamp?;
+          final createdAt = userData['createdAt'] as st.Timestamp?;
           final firstName = userData['firstName'] as String? ?? '';
           final lastName = userData['lastName'] as String? ?? '';
           final phone = userData['phone'] as String? ?? 'Not provided';
           final email = userData['email'] as String? ?? '';
-          final lastUpdate = userData['updatedAt'] as Timestamp;
+          final lastUpdate = userData['updatedAt'] as st.Timestamp;
 
           return SingleChildScrollView(
             padding: EdgeInsets.all(20),
@@ -207,7 +209,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => EditProfile(
+                                      user: User.fromFirebase(widget.user)),
+                                ),
+                              );
+                            },
                             icon: Icon(
                               Icons.edit,
                               color: const Color(0xFFFFFFFF),

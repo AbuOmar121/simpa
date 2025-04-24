@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class User {
   final String uid;
@@ -41,5 +42,16 @@ class User {
       'created_at': Timestamp.fromDate(createdAt),
       'updated_at': Timestamp.fromDate(updatedAt),
     };
+  }
+
+  factory User.fromFirebase(auth.User user) {
+    return User(
+      uid: user.uid,
+      firstName: "",
+      lastName: "",
+      email: user.email ?? "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
   }
 }

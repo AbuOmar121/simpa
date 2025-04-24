@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simpa/authintication/sign_in_screen.dart';
-import 'package:simpa/authintication/sign_up_screen.dart';
+import 'package:simpa/screens/authintication/sign_in/sign_in_screen.dart';
+import 'package:simpa/screens/authintication/sign_up/sign_up_screen.dart';
 
 class StartingScreen extends StatelessWidget {
   const StartingScreen({super.key});

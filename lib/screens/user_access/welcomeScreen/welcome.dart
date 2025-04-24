@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
-import 'package:simpa/pages/pets/pet_profile.dart';
-import 'package:simpa/pages/user/user_profile_screen.dart';
-import 'package:simpa/popups/add_pet_popup.dart';
-import 'package:simpa/pages/settings.dart';
-import 'package:simpa/pages/welcomeScreen/usercard.dart';
+import 'package:simpa/screens/pets/pet_profile.dart';
+import 'package:simpa/screens/user/user_profile_screen.dart';
+import 'package:simpa/screens/popups/add_pet_popup.dart';
+import 'package:simpa/screens/user_access/settings.dart';
+import 'package:simpa/screens/user_access/welcomeScreen/usercard.dart';
 
 class Welcome extends StatefulWidget {
-  final User user;
+  final auth.User user;
   const Welcome({super.key, required this.user});
 
   @override

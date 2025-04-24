@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simpa/starting_screen.dart';
+import 'package:simpa/screens/starting_screen.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
