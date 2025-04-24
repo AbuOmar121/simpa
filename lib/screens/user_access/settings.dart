@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:simpa/screens/stylesAndDec/dec.dart';
+import 'package:simpa/screens/user_access/stylesAndDec/dec.dart';
 import 'package:simpa/screens/starting_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:simpa/screens/stylesAndDec/style.dart';
+import 'package:simpa/screens/user_access/stylesAndDec/style.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsScreen extends StatefulWidget {

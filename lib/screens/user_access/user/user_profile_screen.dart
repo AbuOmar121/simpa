@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart' as st;
 import 'package:simpa/firebase/models/user_model.dart';
-import 'package:simpa/screens/user/edit_profile.dart';
+import 'package:simpa/screens/user_access/user/edit_profile.dart';
 
 class UserProfileScreen extends StatefulWidget {
   final auth.User user;

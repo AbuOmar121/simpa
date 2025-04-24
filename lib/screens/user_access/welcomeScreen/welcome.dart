@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simpa/firebase/models/pet_model.dart';
-import 'package:simpa/screens/pets/pet_profile.dart';
-import 'package:simpa/screens/user/user_profile_screen.dart';
-import 'package:simpa/screens/popups/add_pet_popup.dart';
+import 'package:simpa/screens/user_access/pets/pet_profile.dart';
+import 'package:simpa/screens/user_access/user/user_profile_screen.dart';
+import 'package:simpa/screens/user_access/popups/add_pet_popup.dart';
 import 'package:simpa/screens/user_access/settings.dart';
 import 'package:simpa/screens/user_access/welcomeScreen/usercard.dart';
 
