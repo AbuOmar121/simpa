@@ -118,7 +118,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             radius: 50,
                             backgroundColor: Color(0xFFFF3F3F),
                             child: Text(
-                              '${firstName.isNotEmpty ? firstName[0] : ''}${lastName.isNotEmpty ? lastName[0] : ''}',
+                              '${firstName.isNotEmpty ? firstName[0].toUpperCase() : ''}${lastName.isNotEmpty ? lastName[0].toUpperCase() : ''}',
                               style: TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.bold,

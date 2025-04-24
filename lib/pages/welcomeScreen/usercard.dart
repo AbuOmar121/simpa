@@ -49,7 +49,7 @@ class _UserCardState extends State<UserCard> {
                   radius: 50,
                   backgroundColor: Color(0xFFFF3F3F),
                   child: Text(
-                    '${widget.firstname.isNotEmpty ? widget.firstname[0] : ''}${widget.lastname.isNotEmpty ? widget.lastname[0] : ''}',
+                    '${widget.firstname.isNotEmpty ? widget.firstname[0].toUpperCase() : ''}${widget.lastname.isNotEmpty ? widget.lastname[0].toUpperCase() : ''}',
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
