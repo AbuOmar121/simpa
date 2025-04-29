@@ -95,12 +95,15 @@ class _PetsProfileState extends State<PetsProfile> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 24),
+        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 32,
+              ),
               Container(
                 width: 120,
                 height: 120,

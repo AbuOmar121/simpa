@@ -13,11 +13,40 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   late Future<Map<String, dynamic>> _userDataFuture;
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+  late TextEditingController phoneController;
+  late TextEditingController emailController;
 
   @override
   void initState() {
     super.initState();
-    _userDataFuture = _fetchUserData();
+    // Initialize controllers with empty values first
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+    phoneController = TextEditingController();
+    emailController = TextEditingController();
+
+    _userDataFuture = _fetchUserData().then((userData) {
+      if (mounted) {
+        setState(() {
+          firstNameController.text = widget.user.firstName ?? '';
+          lastNameController.text = widget.user.lastName ?? '';
+          phoneController.text = userData['phone']?.toString() ?? '';
+          emailController.text = widget.user.email ?? '';
+        });
+      }
+      return userData;
+    });
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+    super.dispose();
   }
 
   Future<Map<String, dynamic>> _fetchUserData() async {
@@ -97,25 +126,13 @@ class _EditProfileState extends State<EditProfile> {
               ),
             );
           }
-          // final formKey = GlobalKey<FormState>();
-          final userData = snapshot.data!;
 
-          final firstNameController =
-              TextEditingController(text: widget.user.firstName);
-          final lastNameController =
-              TextEditingController(text: widget.user.lastName);
-          final phoneController =
-              TextEditingController(text: userData['phone']);
-          final emailController =
-              TextEditingController(text: widget.user.email);
           return Padding(
             padding: EdgeInsets.all(18),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 16,
-                  ),
+                  SizedBox(height: 16),
                   Text(
                     'Edit your Details',
                     style: TextStyle(
@@ -124,9 +141,7 @@ class _EditProfileState extends State<EditProfile> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(
-                    height: 32,
-                  ),
+                  SizedBox(height: 32),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -140,16 +155,45 @@ class _EditProfileState extends State<EditProfile> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(16),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '',
+                            'Testing',
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: Color(0xff000000),
+                            ),
                           ),
+                          SizedBox(height: 16),
                           TxtField(
                             controller: firstNameController,
                             tag: 'First Name',
+                          ),
+                          SizedBox(height: 16),
+                          TxtField(
+                            controller: lastNameController,
+                            tag: 'Last Name',
+                          ),
+                          SizedBox(height: 16),
+                          TxtField(
+                            controller: phoneController,
+                            tag: 'Phone',
+                          ),
+                          SizedBox(height: 16),
+                          TxtField(
+                            controller: emailController,
+                            tag: 'Email',
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            firstNameController.text,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Color(0xff000000),
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ],
                       ),
