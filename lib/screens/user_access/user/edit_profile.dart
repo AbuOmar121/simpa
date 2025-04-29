@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:simpa/firebase/models/user_model.dart';
+import 'package:simpa/screens/user_access/user/edit_field.dart';
 
 class EditProfile extends StatefulWidget {
   final User user;
@@ -111,18 +112,46 @@ class _EditProfileState extends State<EditProfile> {
             padding: EdgeInsets.all(18),
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextFormField(
-                    controller: firstNameController,
-                    decoration: InputDecoration(
-                      labelText: 'Pet name',
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.pink),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    'Edit your Details',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Color(0xFF000000),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Color.fromRGBO(0, 0, 0, 0.125),
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '',
+                          ),
+                          TxtField(
+                            controller: firstNameController,
+                            tag: 'First Name',
+                          ),
+                        ],
                       ),
                     ),
                   ),

@@ -23,7 +23,7 @@ void showEditPetPopup(
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 24,
-            color: Color(0xFFE91E63),
+            color: Color(0xFF000000),
             fontWeight: FontWeight.bold,
           ),
         ),
