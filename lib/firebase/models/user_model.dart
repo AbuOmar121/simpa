@@ -21,8 +21,8 @@ class User {
   factory User.fromFirestore(Map<String, dynamic> data, String uid) {
     return User(
       uid: uid,
-      firstName: data['first_name'] ?? '',
-      lastName: data['last_name'] ?? '',
+      firstName: data['firstName'] ?? '',
+      lastName: data['lastName'] ?? '',
       email: data['email'] ?? '',
       createdAt: (data['created_at'] as Timestamp).toDate(),
       updatedAt: (data['updated_at'] as Timestamp).toDate(),

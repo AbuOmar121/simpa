@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:simpa/firebase/models/user_model.dart';
+// import 'package:simpa/screens/user_access/popups/are_you_sure.dart';
 import 'package:simpa/screens/user_access/user/edit_field.dart';
 
 class EditProfile extends StatefulWidget {
@@ -30,10 +31,9 @@ class _EditProfileState extends State<EditProfile> {
     _userDataFuture = _fetchUserData().then((userData) {
       if (mounted) {
         setState(() {
-          firstNameController.text = widget.user.firstName ?? '';
-          lastNameController.text = widget.user.lastName ?? '';
+          firstNameController.text = userData['firstName']?.toString() ?? '';
+          lastNameController.text = userData['lastName']?.toString() ?? '';
           phoneController.text = userData['phone']?.toString() ?? '';
-          emailController.text = widget.user.email ?? '';
         });
       }
       return userData;
@@ -81,6 +81,11 @@ class _EditProfileState extends State<EditProfile> {
             size: 30,
           ),
           onPressed: () {
+            // AreYouSure(
+            //   title: 'Discard?',
+            //   content: 'Are you sure you want to cancel editing your account?',
+            //   onConfirm: () => print('test'),
+            // );
             Navigator.pop(context);
           },
         ),
@@ -159,6 +164,7 @@ class _EditProfileState extends State<EditProfile> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SizedBox(height: 16),
                           Text(
                             'Testing',
                             style: TextStyle(
@@ -166,37 +172,61 @@ class _EditProfileState extends State<EditProfile> {
                               color: Color(0xff000000),
                             ),
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 32),
                           TxtField(
                             controller: firstNameController,
                             tag: 'First Name',
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 32),
                           TxtField(
                             controller: lastNameController,
                             tag: 'Last Name',
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 32),
                           TxtField(
                             controller: phoneController,
                             tag: 'Phone',
                           ),
-                          SizedBox(height: 16),
-                          TxtField(
-                            controller: emailController,
-                            tag: 'Email',
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            firstNameController.text,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xff000000),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                          SizedBox(height: 32),
                         ],
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.check,
+                            color: const Color(0xFFFFFFFF),
+                            size: 24,
+                          ),
+                          label: Text(
+                            'Confirm Edits',
+                            style: TextStyle(
+                              fontFamily: 'Inter Tight',
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 16,
+                              letterSpacing: 0.0,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFFE91E63),
+                            foregroundColor: Color(0xFFFFFFFF),
+                            minimumSize: Size(350, 50),
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: BorderSide(color: Colors.transparent),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
