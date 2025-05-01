@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:simpa/firebase/models/user_model.dart';
-// import 'package:simpa/screens/user_access/popups/are_you_sure.dart';
 import 'package:simpa/screens/user_access/user/edit_field.dart';
+import 'package:simpa/screens/user_access/user/user_profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+// import 'package:simpa/screens/user_access/welcomeScreen/welcome.dart';
 
 class EditProfile extends StatefulWidget {
-  final User user;
+  final auth.User user;
   const EditProfile({super.key, required this.user});
 
   @override
@@ -22,7 +23,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     super.initState();
-    // Initialize controllers with empty values first
+
     firstNameController = TextEditingController();
     lastNameController = TextEditingController();
     phoneController = TextEditingController();
@@ -64,6 +65,18 @@ class _EditProfileState extends State<EditProfile> {
     } catch (e) {
       return {'error': 'Failed to load user data'};
     }
+  }
+
+  void confirm() {
+    Navigator.of(context).pop();
+    setState(() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => UserProfileScreen(user: widget.user),
+        ),
+      );
+    });
   }
 
   @override
@@ -199,7 +212,22 @@ class _EditProfileState extends State<EditProfile> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            try {
+                              await FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(widget.user.uid)
+                                  .update({
+                                'firstName': firstNameController.text.trim(),
+                                'lastName': lastNameController.text.trim(),
+                                'phone': phoneController.text.trim(),
+                              });
+
+                              if (context.mounted) {
+                                confirm();
+                              }
+                            } catch (e) {}
+                          },
                           icon: Icon(
                             Icons.check,
                             color: const Color(0xFFFFFFFF),

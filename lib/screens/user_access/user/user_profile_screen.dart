@@ -213,8 +213,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => EditProfile(
-                                      user: User.fromFirebase(widget.user)),
+                                  builder: (_) =>
+                                      EditProfile(user: widget.user),
                                 ),
                               );
                             },

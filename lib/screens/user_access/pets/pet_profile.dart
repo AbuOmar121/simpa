@@ -218,8 +218,6 @@ class _PetsProfileState extends State<PetsProfile> {
                           },
                         );
                       },
-
-                      /* */
                       icon: Icon(
                         Icons.edit,
                         color: const Color(0xFFFFFFFF),
