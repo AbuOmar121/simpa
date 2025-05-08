@@ -17,6 +17,7 @@ dependencies:
   cloud_functions: ^4.6.7
   firebase_storage: ^11.7.7
   firebase_messaging: ^14.9.4
+  flutter_local_notifications: ^17.1.2
   firebase_analytics: ^10.7.0
   firebase_app_check: ^0.2.2+7
   intl: ^0.18.1  # Add this line
