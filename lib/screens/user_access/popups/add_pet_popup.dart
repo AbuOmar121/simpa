@@ -3,8 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
-void showAddPetPopup(BuildContext context,
-    {required void Function() onPetAdded}) {
+void showAddPetPopup(BuildContext context,) {
   // ignore: no_leading_underscores_for_local_identifiers
   final _formKey = GlobalKey<FormState>();
   final petNameController = TextEditingController();
@@ -176,7 +175,6 @@ void showAddPetPopup(BuildContext context,
 
                   if (context.mounted) {
                     Navigator.of(context).pop();
-                    onPetAdded();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Pet added successfully!')),
                     );

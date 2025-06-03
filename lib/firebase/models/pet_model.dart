@@ -7,7 +7,7 @@ class Pet {
   final String petBreed;
   final String petGender;
   final DateTime? birthdate;
-  final String uid; // foreign key
+  final String uid;
 
   Pet({
     required this.pid,
@@ -19,7 +19,6 @@ class Pet {
     required this.uid,
   });
 
-  /// 🔢 Computed age getter
   String get age {
     if (birthdate == null) return 'Unknown';
 

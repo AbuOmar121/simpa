@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart' as st;
-import 'package:simpa/firebase/models/user_model.dart';
+import 'package:simpa/screens/project_app_bar.dart';
 import 'package:simpa/screens/user_access/user/edit_profile.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -42,28 +42,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFFE1E1),
-      appBar: AppBar(
-        backgroundColor: Color(0xFFFF4F81),
-        centerTitle: true,
-        title: Text(
-          'My Profile',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 28,
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: ProjectAppBar(title: 'My Profile'),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _userDataFuture,
         builder: (context, snapshot) {
@@ -235,7 +214,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFFE91E63),
                               foregroundColor: Color(0xFFFFFFFF),
-                              minimumSize: Size(350, 50),
+                              minimumSize: Size(300, 50),
                               padding: EdgeInsets.symmetric(horizontal: 16),
                               elevation: 0,
                               shape: RoundedRectangleBorder(
@@ -246,6 +225,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                         ],
                       ),
+                    ),
+                    SizedBox(
+                      height: 64,
                     ),
                   ],
                 ),

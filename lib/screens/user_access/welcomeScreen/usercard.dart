@@ -28,7 +28,7 @@ class _UserCardState extends State<UserCard> {
         widget.onPressed();
       },
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(8,16,8,16),
         child: Container(
           decoration: BoxDecoration(
             color: Color(0xFFF8F8F8),

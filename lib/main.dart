@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:simpa/screens/user_access/welcomeScreen/welcome.dart';
-import 'screens/authintication/loading_screen.dart';
+import 'package:simpa/screens/authentication/choose_role.dart';
+
+import 'package:simpa/service/notification_service.dart';
+import 'package:simpa/splash.dart';
+import 'screens/authentication/loading_screen.dart';
 import 'firebase/firebase_options.dart';
 
 void main() async {
@@ -10,9 +13,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseMessagingService.instance.initialize();
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -27,14 +30,12 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFFE91E63),
-              ),
+            return Center(
+              child: Splash(),
             );
           }
           if (snapshot.hasData) {
-            return Welcome(user: snapshot.data!);
+            return ChooseRole(user: snapshot.data!);
           }
           return LoadingScreen();
         },

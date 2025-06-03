@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:simpa/screens/project_app_bar.dart';
 import 'package:simpa/screens/user_access/user/edit_field.dart';
 import 'package:simpa/screens/user_access/user/user_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -84,36 +85,7 @@ class _EditProfileState extends State<EditProfile> {
     return Scaffold(
       backgroundColor: Color(0xFFFFE1E1),
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Color(0xFFFF4F81),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () {
-            // AreYouSure(
-            //   title: 'Discard?',
-            //   content: 'Are you sure you want to cancel editing your account?',
-            //   onConfirm: () => print('test'),
-            // );
-            Navigator.pop(context);
-          },
-        ),
-        title: Text(
-          'Edit Profile',
-          style: TextStyle(
-            fontFamily: 'Inter Tight',
-            color: Colors.white,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: ProjectAppBar(title: 'Edit Profile'),
       body: FutureBuilder(
         future: _userDataFuture,
         builder: (context, snapshot) {
@@ -179,10 +151,11 @@ class _EditProfileState extends State<EditProfile> {
                         children: [
                           SizedBox(height: 16),
                           Text(
-                            'Testing',
+                            'Fill All Fields',
                             style: TextStyle(
                               fontSize: 22,
                               color: Color(0xff000000),
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           SizedBox(height: 32),
@@ -226,6 +199,7 @@ class _EditProfileState extends State<EditProfile> {
                               if (context.mounted) {
                                 confirm();
                               }
+                            // ignore: empty_catches
                             } catch (e) {}
                           },
                           icon: Icon(
@@ -245,7 +219,7 @@ class _EditProfileState extends State<EditProfile> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFFE91E63),
                             foregroundColor: Color(0xFFFFFFFF),
-                            minimumSize: Size(350, 50),
+                            minimumSize: Size(300, 50),
                             padding: EdgeInsets.symmetric(horizontal: 16),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
@@ -256,6 +230,9 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 64,
                   ),
                 ],
               ),
