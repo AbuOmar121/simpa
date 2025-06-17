@@ -27,7 +27,7 @@ class ChooseVet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:Color(0xFFFFE1E1),
-      appBar: ProjectAppBar(title: 'Ask A Vet'),
+      // appBar: ProjectAppBar(title: 'Ask A Vet'),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: fetchVetUsers(),
         builder: (context, snapshot) {
@@ -52,7 +52,7 @@ class ChooseVet extends StatelessWidget {
                     child: Text(
                       'Choose a Vet',
                       style:TextStyle(
-                        fontSize: 21,
+                        fontSize: 24,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),

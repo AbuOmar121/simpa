@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UserCard extends StatefulWidget {
-  final VoidCallback onPressed;
+  // final VoidCallback onPressed;
   final String firstname;
   final String lastname;
   final String email;
@@ -9,7 +9,7 @@ class UserCard extends StatefulWidget {
 
   const UserCard({
     super.key,
-    required this.onPressed,
+    // required this.onPressed,
     required this.firstname,
     required this.lastname,
     required this.email,
@@ -23,11 +23,7 @@ class UserCard extends StatefulWidget {
 class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        widget.onPressed();
-      },
-      child: Padding(
+    return Padding(
         padding: EdgeInsets.fromLTRB(8,16,8,16),
         child: Container(
           decoration: BoxDecoration(
@@ -66,7 +62,6 @@ class _UserCardState extends State<UserCard> {
                         Text(
                           'Welcome back, ${widget.firstname}!',
                           style: TextStyle(
-                            fontFamily: 'Urbanist',
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(31, 31, 31, 1),
@@ -84,16 +79,10 @@ class _UserCardState extends State<UserCard> {
                     ),
                   ),
                 ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Color.fromRGBO(31, 31, 31, 1),
-                  size: 24,
-                ),
               ],
             ),
           ),
         ),
-      ),
     );
   }
 }

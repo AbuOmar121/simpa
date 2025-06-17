@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simpa/screens/authentication/loading_screen.dart';
-import 'package:simpa/screens/project_app_bar.dart';
 import 'package:simpa/screens/user_access/settings/main/account_information.dart';
 import 'package:simpa/screens/user_access/settings/main/changePassword/account_settings.dart';
 import 'package:simpa/screens/user_access/stylesAndDec/dec.dart';
@@ -77,7 +76,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFFE1E1),
-      appBar: ProjectAppBar(title: 'Settings'),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _fetchUserData(),
         builder: (context, snapshot) {
@@ -93,7 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SizedBox(height: 16),
                   Text(
                     snapshot.data?['error'] ?? 'Error loading user data',
-                    style: TextStyle(fontSize: 18, color: Color(0xFFF44336)),
+                    style: TextStyle(fontSize: 18, color: Color(0xFFFF4081)),
                   ),
                   SizedBox(height: 16),
                 ],

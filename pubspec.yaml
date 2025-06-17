@@ -22,6 +22,7 @@ dependencies:
   firebase_app_check: ^0.2.2+7
   lottie: ^2.7.0
   dropdown_search: ^5.0.6
+  curved_navigation_bar: ^1.0.6 #latest version
   intl: ^0.18.1  # Add this line
 
   # Other dependencies

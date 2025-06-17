@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart' as st;
 import 'package:simpa/screens/project_app_bar.dart';
 import 'package:simpa/screens/user_access/user/edit_profile.dart';
+import 'package:simpa/splash.dart';
 
 class UserProfileScreen extends StatefulWidget {
   final auth.User user;
@@ -42,12 +43,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFFE1E1),
-      appBar: ProjectAppBar(title: 'My Profile'),
+      // appBar: ProjectAppBar(title: 'My Profile'),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _userDataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: Splash());
           }
 
           if (snapshot.hasError || snapshot.data?['error'] != null) {
@@ -91,13 +92,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Profile Header
                     Center(
                       child: Column(
                         children: [
                           CircleAvatar(
                             radius: 50,
-                            backgroundColor: Color(0xFFFF3F3F),
+                            backgroundColor: Color(0xFFFF4081),
                             child: Text(
                               '${firstName.isNotEmpty ? firstName[0].toUpperCase() : ''}${lastName.isNotEmpty ? lastName[0].toUpperCase() : ''}',
                               style: TextStyle(
@@ -212,7 +212,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFE91E63),
+                              backgroundColor: Color(0xFFFF4081),
                               foregroundColor: Color(0xFFFFFFFF),
                               minimumSize: Size(300, 50),
                               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -245,7 +245,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     required String value,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Colors.pink),
+      leading: Icon(icon, color: Color(0xFFFF4081),),
       title: Text(
         title,
         style: TextStyle(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:simpa/firebase/models/notification_model.dart';
 import 'package:simpa/screens/user_access/stylesAndDec/dec.dart';
+import 'package:simpa/splash.dart';
 
 class GetNotification extends StatefulWidget {
   final auth.User user;
@@ -50,7 +51,7 @@ class _GetNotificationState extends State<GetNotification> {
             return Padding(
               padding: EdgeInsets.all(16),
               child: Center(
-                child: CircularProgressIndicator(color: Colors.pink),
+                child: Splash(),
               ),
             );
           }

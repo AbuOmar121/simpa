@@ -338,7 +338,7 @@ class _BookSystemState extends State<BookSystem> {
                         context,
                         MaterialPageRoute(
                           builder: (_) =>
-                              Welcome(user: widget.user),
+                              Welcome(user: widget.user,indexed: 0,),
                         ),
                       );
                     },

@@ -30,8 +30,8 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey:
-        'AIzaSyAxQkoDFsN-GjQp5o9r3cR7e03mBZnpKkA', // Replace with web API key
-    appId: '1:861521744484:web:your-web-app-id', // Get from Firebase console
+        'AIzaSyAxQkoDFsN-GjQp5o9r3cR7e03mBZnpKkA',
+    appId: '1:861521744484:web:your-web-app-id',
     messagingSenderId: '861521744484',
     projectId: 'simpa-f74d3',
     authDomain: 'simpa-f74d3.firebaseapp.com',
@@ -39,11 +39,11 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSy...', // Get from Firebase console
-    appId: '1:861521744484:ios:your-ios-app-id', // Get from Firebase console
+    apiKey: 'AIzaSy...',
+    appId: '1:861521744484:ios:your-ios-app-id',
     messagingSenderId: '861521744484',
     projectId: 'simpa-f74d3',
     storageBucket: 'simpa-f74d3.appspot.com',
-    iosBundleId: 'com.example.simpa', // Your iOS bundle ID
+    iosBundleId: 'com.example.simpa',
   );
 }

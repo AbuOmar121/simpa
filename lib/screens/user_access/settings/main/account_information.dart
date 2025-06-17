@@ -29,9 +29,9 @@ class _AccountInformationState extends State<AccountInformation> {
           Text(
             'account information',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Inter Tight',
+              // fontFamily: 'Inter Tight',
               color: Color(0xFFFF4081),
             ),
           ),
@@ -42,7 +42,7 @@ class _AccountInformationState extends State<AccountInformation> {
             children: [
               CircleAvatar(
                 radius: 50,
-                backgroundColor: Color(0xFFFF3F3F),
+                backgroundColor: Color(0xFFFF4081),
                 child: Text(
                   '${widget.firstName.isNotEmpty ? widget.firstName[0].toUpperCase() : ''}${widget.lastName.isNotEmpty ? widget.lastName[0].toUpperCase() : ''}',
                   style: TextStyle(
